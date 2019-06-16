@@ -22,4 +22,3 @@ function person(age,name){
     console.log(this.age,this.name);
 }
 person.myApply(you,[16,'smart']);
-
