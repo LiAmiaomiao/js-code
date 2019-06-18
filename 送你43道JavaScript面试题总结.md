@@ -71,9 +71,7 @@
   const numbers = [1, 2, 3];
   numbers[10] = 11;
   console.log(numbers);
-
-​        打印：[1，2，3，7 * empty，11]
-
-​        empty实际值为undefined
-
+  -  打印：[1，2，3，7 * empty，11]
+  - empty实际值为undefined
+  
 - 第40题，reduce方法，传入第二个参数是调用函数的初始值
