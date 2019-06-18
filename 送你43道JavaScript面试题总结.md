@@ -34,23 +34,25 @@
   - eval会将传入的字符串当做JavaScript代码进行执行
   - 参数为String，会执行代码；参数不为String时，将会将参数原封不动的返回
   - 返回值为执行指定代码之后的返回值，如果返回值为空，则返回undefined
-- 第24题，所有对象健（不包括Symbol）都会被存储为字符串，即使你没有给定字符串类型的键，所以，obj.hasOwnProperty('1')和obj.hasOwnProperty(1)一样；set不会，所以set('1')返回false，set(1)返回true
+- 第24题，所有对象健（不包括Symbol）都会被存储为字符串，即使你没有给定字符串类型的键，所以，  obj.hasOwnProperty('1')和obj.hasOwnProperty(1)一样；set不会，所以set('1')返回false，set(1)返回true
 - 第25题，Javascript全局执行上下文创建了全局对象和this关键字
 - 第29题，
 
 ![2](https://github.com/LiAmiaomiao/js-code/blob/master/Aimages/2.png)
 
 - 第31题，导致事件的最深嵌套元素是事件的目标。
-
-<div onclick="console.log('first div')">
-  <div onclick="console.log('second div')">
-    <button onclick="console.log('button')">
-      Click!
-    </button>
+  
+  ```
+  <div onclick="console.log('first div')">
+    <div onclick="console.log('second div')">
+      <button onclick="console.log('button')">
+        Click!
+      </button>
+    </div>
   </div>
-</div>
+  ```
 
-​       单击按钮时event.target是嵌套最深的元素，即<button>
+​        单击按钮时event.target是嵌套最深的元素，即<button>
 
 ​        打印button，second div，first div
 
@@ -72,8 +74,8 @@
   numbers[10] = 11;
   console.log(numbers);
 
-打印：[1，2，3，7 * empty，11]
+​        打印：[1，2，3，7 * empty，11]
 
-empty实际值为undefined
+​        empty实际值为undefined
 
 - 第40题，reduce方法，传入第二个参数是调用函数的初始值
