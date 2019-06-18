@@ -3,12 +3,14 @@
 Function.prototype.before=function(beforefn){
     let self=this;//this指向fn
     return function(){
+        //让传入的beforefn函数的this指向window，并传入arguments参数执行beforefn函数
         beforefn.apply(this,arguments); //this指向window
+        //让self，即fn指向window，并传入arguments参数
         return self.apply(this,arguments)
     }
 };
 Function.prototype.after=function(afterfn){
-    let self=this;//this指向after函数return的函数
+    let self=this;//this指向before函数return的函数
     return function(){
         let res=self.apply(this,arguments); //this指向window
         afterfn.apply(this,arguments);
@@ -17,7 +19,7 @@ Function.prototype.after=function(afterfn){
 };
 let fn=()=>console.log('fn');
 fn=fn.before(()=>{
-    console.log('--bofore--')
+    console.log('--before--')
    }).after(()=> console.log('--after--'));
 fn();
 

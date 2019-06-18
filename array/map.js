@@ -10,3 +10,4 @@ Array.prototype.map=function(fn,context){
     }
     return res;
 };
+
