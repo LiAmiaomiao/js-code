@@ -25,7 +25,7 @@
 
 - 第16题
 
-  ![1](C:\Users\Li_Ruli\AppData\Roaming\Typora\typora-user-images\1560821589188.png)
+  ![1](https://github.com/LiAmiaomiao/js-code/blob/master/Aimages/1.png)
 
 - 第17题，{age:18}==={age:18}和{age:18}=={age:18}都返回false
   - 在比较相等性，原始类型通过它们的值比较，而对象通过它们的引用性进行比较。JavaScript检查对象是否具有对内存中相同位置的引用。
@@ -38,7 +38,7 @@
 - 第25题，Javascript全局执行上下文创建了全局对象和this关键字
 - 第29题，
 
-![2](C:\Users\Li_Ruli\AppData\Roaming\Typora\typora-user-images\1560825085868.png)
+![2](https://github.com/LiAmiaomiao/js-code/blob/master/Aimages/2.png)
 
 - 第31题，导致事件的最深嵌套元素是事件的目标。
 
