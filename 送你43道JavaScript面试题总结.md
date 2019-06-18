@@ -51,10 +51,8 @@
     </div>
   </div>
   ```
-
-​        单击按钮时event.target是嵌套最深的元素，即<button>
-
-​        打印button，second div，first div
+  - 单击按钮时event.target是嵌套最深的元素，即<button>
+  - 打印button，second div，first div
 
 - 第33题，call和bind的区别
   - call方法接收参数第一个为this指向，后面的都为传入的参数，并且函数立即执行，并返回执行结果（和apply不同之处在于apply接收两个参数，第二参数为参数数组）
