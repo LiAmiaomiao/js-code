@@ -7,7 +7,7 @@ Array.prototype.myFlat=function(depth=1){
     if(depth===0) return arr;
     return arr.reduce((pre,cur)=>{
         if(Array.isArray(cur)){
-            return [...pre,...Array.prototype.flat.call(cur,depth-1)];
+            return [...pre,...Array.prototype.myFlat.call(cur,depth-1)];
         }else{
             return [...pre,cur]
         }
