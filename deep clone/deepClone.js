@@ -3,6 +3,7 @@
  * @param:{any} object深拷贝的变量
  * @return:target深拷贝后的变量
  */
+//WeakMap 的 key 只能是 Object 类型
 function deepclone(object,hash=new WeakMap()){
     if(!isObject(object)) return object;
     //hash处理循环引用
@@ -59,11 +60,18 @@ function copyArray(array,value,hash){
             array[i]=item;
         }else{
             if(Array.isArray(item)){
-                let temp=initArray(temp,item,hash);
+                let temp=initArray(item);
+                array[i]=copyArray(temp,item,hash);
+            }else{
+                array[i]=deepclone(item,hash);
             }
         }
     }
+    return array;
 }
-
-
+module.exports={
+    deepclone,
+    initArray,
+    copyArray
+};
 
