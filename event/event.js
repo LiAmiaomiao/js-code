@@ -67,3 +67,5 @@ HTMLNode.prototype.addEventListener = function(eventName,handler,useCapture=fals
     }
     this._handlers[eventName][useCapture ? 'capture' : 'bubble'].push(handler)
 };
+
+
