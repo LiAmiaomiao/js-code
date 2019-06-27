@@ -38,3 +38,4 @@ function inherit(subType,superType){
     // 该对象的新原型(一个对象 或 null).
     Object.setPrototypeOf(subType,superType)
 }
+
