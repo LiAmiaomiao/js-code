@@ -332,9 +332,38 @@
 
     - 这三种方法的实现（看js-code）
 
+      
+
+- **new**
+
+  - 原理：
+
+    - 新生成了一个对象
+    - 链接到原型
+    - 绑定 this
+    - 返回新对象
+
+  - 实现
+
+    ```
+    function create() {
+      let obj = {}  //创建一个空对象
+      let Con = [].shift.call(arguments)  //获取构造函数
+      obj.__proto__ = Con.prototype  //设置空对象的原型
+      let result = Con.apply(obj, arguments)  //绑定 this 并执行构造函数
+      return result instanceof Object ? result : obj  //确保返回值为对象
+    }
+    ```
+
+  - 注：对于创建对象来说，更推荐使用字面量的方式创建对象，因为使用new Object()的方式创建对象需要通过作用域链一层层找到Object
+
+    
+
 - **this**
 
   - 判断this指向
+
+
 
 
 
@@ -389,113 +418,3 @@
     - 利用事件冒泡的机制把里层所需要响应的事件绑定到外层
     - 应用场景：如果一个节点中的子节点是动态生成的，那么子节点需要注册事件的话应该注册在父节点上
     - 优点：节省内存，不需要给子节点注销事件
-
-  
-
-  
-
-### ES6
-
-- **let和const**
-
-  - 暂存死区：
-    - 通过 `let` 声明的变量直到它们的定义被执行时才初始化。在变量初始化前访问该变量会导致 `ReferenceError`。该变量处在一个自块顶部到初始化处理的“暂存死区”中。
-
-- **Promise**
-
-  - `Promise` 对象用于表示一个异步操作的最终状态（完成或失败），以及该异步操作的结果值（返回值）。
-
-  - 一个 `Promise`有以下几种状态:
-
-    - *pending*: 初始状态。
-    - *fulfilled*: 意味着操作成功完成。
-    - *rejected*: 意味着操作失败。
-
-  - **特点**：promise对象状态从pending改到fulfilled或者从pending改到rejected，只要这两种情况发生，就不会再改变，这个时候就称为定型resolved。
-
-  - **参数**是一个带有 `resolve` 和 `reject` 两个参数的函数 。
-
-    - resolve函数：将状态从pending变为fulfilled，并将异步操作的结果作为参数传递出去
-    - reject函数：将状态从pending变为rejected，并将异步操作报出的错误作为参数传递出去
-
-  - 语法：`new Promise( (resolve , reject ) => { })`
-
-  - 方法
-
-    - Promise.all(iterable)：用于处理多个promise对象的集合状态
-      - 该方法返回一个新的promise对象，该promise对象在iterable参数对象里所有promise对iterable象都成功的时候才会触发成功
-      - 当有一个iterable里面的promise对象失败则立即触发该promise对象的失败状态，则会把iterable里第一个触发失败的promise对象的信息错误作为失败错误信息
-      - 当该promise对象触发成功状态以后，会把一个包含iterable里所有promise返回值得数组作为成功回调得返回值
-    - Promise.race()
-      - 当iterable参数列表里任意一个promise被成功或者失败之后，父promise会马上将子promise的成功返回值或者失败详情作为参数调用父promise绑定的相应句柄，并返回该promise对象
-    - Promise.reject(reason)
-      - 返回一个状态为失败的Promise对象，并将给定的失败信息传递给对应的处理方法
-    - Promise.resolve(value)
-      - 返回一个状态由给定value决定的promise对象；若该value是带有then方法的对象，则返回的最终状态由then方法决定，若不是，则状态为fulfilled，并讲value值传递给then方法
-
-  - Promise原型：
-
-    - 属性：Promise.prototype.constructor
-
-    - 方法：
-
-      Promise.prototype.catch(onRejected)
-
-      Promise.prototype.then(onFulfilled，onRejected)
-
-      Promise.prototype.finally(onFinally)
-
-  - 优缺点：`Promise` 也很好地解决了回调地狱的问题，缺点比如无法取消 `Promise`，错误需要通过回调函数捕获。
-
-  - 实现Promise（看js-code）
-
-- **Class**
-
-  - 语法：`class name [extends]{ }`
-
-  - ```
-    //构造函数中使用的super()只能在构造函数中使用，并且必须在this关键字前调用
-    class A{
-       constructor(width){
-          this.width = width;
-       }
-    }
-    class B extends A{
-       constructor(width){
-          super(width);
-          this.name = 'B'
-       }
-    }
-    ```
-
-  - 注意：
-
-    - 类声明不可以提升
-    - 重复声明一个类会引起类型错误
-    - 
-
-- **Async  Await**
-
-  - `async` 就是将函数返回值使用 `Promise.resolve()` 包裹了下，和 `then` 中处理返回值一样，并且 `await` 只能配套 `async` 使用
-  - 
-
-- **Proxy**
-
-- **Set**
-
-- **Map**
-
-- **模块化**
-
-- 
-
-
-
-
-
-- **js异步**
-  - 回调函数
-  - Generator
-  - Promise
-  - async，awiat
-  - 定时器函数（setTimeout，setInterval）
