@@ -9,6 +9,7 @@ const handler={
         editOnFocus(e);
     }
 };
+
 class Editor extends Component{
     constructor(){
         this._onBlur=this._buildHandler('onBlur');

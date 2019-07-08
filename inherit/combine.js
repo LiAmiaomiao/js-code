@@ -19,7 +19,7 @@ Child.prototype=new Parent();
 //作用:继承父类的函数
 
 //调整constructor指向自身构造函数(本来是指向Parent())
-Child.prototype.constructor=Child();
+Child.prototype.constructor=Child; //???
 Child.prototype.getArr=function(){
     console.log(this.arr);
 };
