@@ -11,7 +11,6 @@ function Promise(fn){
         console.log('resolve'+ newValue);
         value = newValue; //PENDING ---> FULFILL
         state = FULFILL;
-
         if(deferred){
             handle(deferred);//调用回调函数
         }
