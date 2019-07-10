@@ -46,3 +46,19 @@ urls.forEach(url=>{
 });
 
 requestQueue.loop();
+
+
+
+Array.prototype.myDelete = function(){
+    var arr=[].slice.call(this);
+    var hash = [];
+    var newArr = [];
+    for(var i=0;i<arr.length;i++){
+        if(hash.indexOf(arr[i])=== 1){
+            newArr.push(arr[i])
+        }
+    }
+    return newArr;
+}
+​var arr = [1,2,3,4,5,6,7,2,4,5,6,8]
+​arr.myDelete();
