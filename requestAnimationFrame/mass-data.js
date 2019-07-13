@@ -21,6 +21,7 @@
     }
     function handleBatch(){
         if(batchDone < batchCount){
+            //该回调函数会在浏览器下一次重绘之前执行
             requestAnimationFrame(append);  //append???
         }
     }
