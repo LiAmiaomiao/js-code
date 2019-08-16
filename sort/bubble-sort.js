@@ -19,3 +19,6 @@ function bubbleSort(target){
 
 moudle.exports= bubbleSort;
 
+function bubbleSort2(target){
+
+}
