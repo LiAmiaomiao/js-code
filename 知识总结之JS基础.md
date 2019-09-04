@@ -16,6 +16,8 @@
   基本数据类型：`Number`，`String`，`Boolean`，`null`，`undefined`，`Symbol`
 
   引用数据类型：`Object`
+  
+  BigInt:新出的数据类型，为了解决js的最大安全数字（2e53）之外的范围数字精度丢失问题
 
   区别：
 
