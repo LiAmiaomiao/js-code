@@ -79,7 +79,7 @@
 
 - **Async  Await**
 
-  - 当方法调用async函数是，会返回一个Promise对象，当这个async函数返回一个值时，Promise的reslve会负责传递这个值；当async函数抛出异常时，Promise的reject方法也会传递这个异常值。
+  - async函数是generator的语法糖，当方法调用async函数时，会返回一个Promise对象，当这个async函数返回一个值时，Promise的reslve会负责传递这个值；当async函数抛出异常时，Promise的reject方法也会传递这个异常值。
 
   - await关键字仅在async function中有效，否则会报语法错误
 
@@ -224,10 +224,9 @@
 
   - CommonJS和ES Moudle的区别
 
-    - CommonJS 支持动态导入，也就是 `require(${path}/xx.js)`，后者目前不支持，但是已有提案
-    - CommonJS 是同步导入，因为用于服务端，文件都在本地，同步导入即使卡住主线程影响也不大。而后者是异步导入，因为用于浏览器，需要下载文件，如果也采用同步导入会对渲染有很大影响
-    - CommonJS 在导出时都是值拷贝，就算导出的值变了，导入的值也不会改变，所以如果想更新值，必须重新导入一次。但是 ES Module 采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化
-    - ES Module 会编译成 `require/exports` 来执行的
+    - CommonJS 支持动态导入，也就是`require(${path}/xx.js)`，后者目前不支持，但是已有提案
+    - CommonJS 是同步导入，用于服务端，导入值是浅拷贝，改变导出值不会改变导入值，要想改变只能重新导入一次
+    - ES Moudle是异步导入，用于浏览器，采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化
 
     
 
