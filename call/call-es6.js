@@ -9,7 +9,6 @@ Function.prototype.myCall=function(ctx){
     let res=ctx.fn(...args);
     //删除delete
     delete ctx.fn;
-
     return res;
 };
 

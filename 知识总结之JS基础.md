@@ -29,6 +29,18 @@
 
   - typeof对于原始值，除了null都能返回正确的类型；对于引用类型，除了函数，返回值都是Object
   - instanceof内部机制是通过原型链来判断的，比如A instanceof B的原理是看A的原型链上有没有B的原型
+  ````
+  function myInstanceof(left,right){
+    let prototype = right.prototype;
+    left=left.__prototype;
+    while(true){
+      if(left===null||left===undefined)
+        return false;
+      if(prototype===left)
+        return true
+      left = left.__proto__
+    }
+  }
 
 - **深拷贝和浅拷贝**
 
@@ -87,31 +99,30 @@
 
       缺陷：会忽略undefined和symblol，且不能序列化函数和不能解决循环引用的对象
 
-    - 原生实现
-
-      ```
-      function deepClone(origin, target){
-         let target = target || {};
-         toStr = Object.prototype.toString;
-         arrStr = "[object Arrray]";
-         for(let prop in origin){
-            //判断是否是自己的属性（排除原型）
-            if(origin.hasOwnproperty(prop)){
-              //判断是否是对象还是原始值
-              if(typeof(origin[prop])== 'object'){
-                 //判断是对象还是数组
-                 toStr.call(orgin[prop])==arrStr ? [] : {};
-                 //递归进行拷贝
-                 deepClone(origin[prop],target[prop]);
-              }else{
-                 target[prop]=origin[prop];
-              }
+     - 原生实现
+            
+        ```
+         function deepClone(obj){
+            let newObj = {},
+            toStr=Object.prototype.toString,
+            arrStr = '[object Array]';
+            for(let prop in obj){
+                //排除原型
+                if(obj.hasOwnProperty(prop)){
+                    //判断是否是对象还是原始值
+                    if(typeof(obj[prop])=='object'){
+                        //判断是对象还是数组
+                        toStr.call(obj[prop])==arrStr?[]:{};
+                        //递归拷贝
+                        deepClone(obj[prop])
+                    }else{
+                        newObj[prop]=obj[prop]
+                    }
+                }
             }
-         }
-         return target;
-      }
-      ```
-
+            return newObj
+        }
+       ```
     - 使用`MessageChannel`，当所需拷贝的对象含有内置类型并且不包含函数时可以使用它
 
     - 使用lodash（一个js工具库）的深拷贝函数
@@ -374,9 +385,53 @@
       ```
 
     - 这三种方法的实现（看js-code）
-
-      
-
+        ````
+        //call的实现
+        Function.prototype.myCall=function(ctx){
+            //转基本类型为object，若不存在则挂到window上
+            ctx=ctx?Object(ctx):window;
+            //获取调用函数并挂到第一个参数（被call者）
+            ctx.fn=this;
+            //获取调用参数
+            let args=[...arguments].slice(1);
+            //调用fn，保存结果
+            let res=ctx.fn(...args);
+            //删除delete
+            delete ctx.fn;
+            return res;
+        };
+        //apply的实现
+        Function.prototype.myApply = function(ctx,arg){
+            //转基本类型为object，若不存在则挂载到window上
+            ctx = ctx ? Object(ctx ): window;
+            //获取调用函数并挂载到第一个参数(被call者)
+            ctx.fn = this; //this是person:fn
+            let res;
+            if(!arg){
+                res = ctx.fn();
+            }else{
+                res = ctx.fn(...arg)
+            }
+            //删除fn
+            delete ctx.fn;
+            return res;
+        };
+        //bind的实现
+        Function.prototype.myBind=function(ctx){
+          //保存this
+          let self=this;
+          //截取数组
+            let args=[...arguments].slice(1);
+        
+            let fn=function(){
+                return self.apply(
+                    this instanceof fn ? this : ctx,
+                    args.concat([...arguments])
+                )
+            };
+            fn.prototype=Object.create(this.prototype);
+            return fn;
+        };
 - **new**
 
   - 原理：
@@ -461,5 +516,36 @@
     - 利用事件冒泡的机制把里层所需要响应的事件绑定到外层
     - 应用场景：如果一个节点中的子节点是动态生成的，那么子节点需要注册事件的话应该注册在父节点上
     - 优点：节省内存，不需要给子节点注销事件
-
+  - 防抖节流
+    - 防抖
+    ```
+    //防抖
+    //在任务频繁触发的时候，若在一段时间内再触发这个函数，则函数重新计时
+    const debounce = (fn, delay) => {
+        let timer = null;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(()=>{
+                fn.apply(this,args);
+            },delay)
+        }
+    };
+    ```
+    - 节流
+    ```
+    //节流
+    //指定时间间隔内执行一次任务
+    //在任务频繁触发的时候，在时间间隔内只触发一次
+    const throttle = (fn, delay=500) => {
+        let flag = true;
+        return (...args)=>{
+            if(!flag) return;
+            flag=false;
+            setTimeout((...args)=>{
+                fn.apply(this,args);
+                flag=true;
+            },delay)
+        }
+    }
+    ```
 
