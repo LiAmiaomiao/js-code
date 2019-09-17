@@ -66,7 +66,7 @@
 
       ```
       let shallowCopy = function(obj){
-         if(typeof obj !== 'object') return;
+'         if(typeof obj !== 'object') return;
          //根据obj的类型判断新建数组还是对象
          let newObj = obj instanceof Array ? [] : {};
          //遍历obj，并且判断是obj的属性才拷贝
@@ -516,6 +516,22 @@
     - 利用事件冒泡的机制把里层所需要响应的事件绑定到外层
     - 应用场景：如果一个节点中的子节点是动态生成的，那么子节点需要注册事件的话应该注册在父节点上
     - 优点：节省内存，不需要给子节点注销事件
+      ```
+       window.onload=function(){
+        var oUl = document.getElementById('ul1');
+        oUl.onclick = function(ev){
+        // IE8或IE8以下的浏览器中，事件处理函数中使用的事件对象是window.event。
+            // IE8以上浏览器或者其他标准浏览器，通常使用给事件处理阐述传递的事件对象ev。
+            var ev = ev || window.event;
+            // Event对象提供了一个属性叫target，可以返回事件的目标节点，我们成为事件源，也就是说，target就可以表示为当前的事件操作的dom，但是不是真正操作dom，当然，这个是有兼容性的，标准浏览器用ev.target，IE浏览器用event.srcElement此时只是获取了当前节点的位置，并不知道是什么节点名称，这里我们用nodeName来获取具体是什么标签名，这个返回的是一个大写的，我们需要转成小写再做比较（习惯问题）
+            var target = ev.target || ev.srcElement;
+            if(target.nodeName.toLowerCase() == 'li'){
+              alert(123);
+              alert(target.innerHTML);
+            }
+          }	
+       } 
+       ```  
   - 防抖节流
     - 防抖
     ```
@@ -548,4 +564,13 @@
         }
     }
     ```
-
+- 用setTimeout实现setInterval
+    ```
+    function mySetInterval(fn, millisec){
+      function interval(){
+        setTimeout(interval, millisec);
+        fn();
+      }
+      setTimeout(interval, millisec)
+    }
+   ```
