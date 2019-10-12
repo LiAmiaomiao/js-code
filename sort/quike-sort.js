@@ -16,3 +16,6 @@ function quikeSort(arr){
     return [].concat(quikeSort(leftArr),[q], quikeSort(rightArr));
 }
 moudle.exports = quikeSort;
+
+
+
