@@ -13,7 +13,7 @@
 
 - **JS有哪些数据类型及其区别**
 
-  基本数据类型：`Number`，`String`，`Boolean`，`null`，`undefined`，`Symbol`
+  基本数据类型：`Number`，`String`，`Boolean`，`null`，`undefined`，`Symbol`，`BigInt`
 
   引用数据类型：`Object`
   
@@ -28,6 +28,7 @@
 - **typeof，instanceof（判断数据类型）**
 
   - typeof对于原始值，除了null都能返回正确的类型；对于引用类型，除了函数，返回值都是Object
+  - typeof返回的类型(8种)：number,string,boolean,undefined,symbol,bigint,function,object
   - instanceof内部机制是通过原型链来判断的，比如A instanceof B的原理是看A的原型链上有没有B的原型
   ````
   function myInstanceof(left,right){
