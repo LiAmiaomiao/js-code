@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // class Person{
+    //     constructor(name){
+    //         this.name=name;
+    //     }
+    //     sayName(){
+    //         return this.name
+    //     }
+    // }
+    // let p = new Person('Jack');
+    // console.log(p.sayName===Person.prototype.sayName);//true
+    // console.log(p instanceof Person);//true
+    // console.log(p instanceof Object);//true
+    // console.log(Object.getPrototypeOf(p)===Person); //false
+    // console.log(Object.getPrototypeOf(p))
+    /*
+    * {
+    *    constructor:function Person(){}
+    *    sayName:function sayName(){}
+    * }
+    * */
+   // console.log(Object.getPrototypeOf(p).constructor===Person);//true
+var name='Jaye';
+var student={
+    name:'Lisa',
+    checkName:function(){
+        console.log(this);//student
+        console.log(this.name);
+        return function(){
+            console.log(this);//window
+            console.log(this.name)
+        }
+    }
+};
+var checkName=student.checkName();
+checkName();
+
+
+</script>
+
+</body>
+</html>
