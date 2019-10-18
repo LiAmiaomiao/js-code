@@ -24,12 +24,13 @@
   - 基本数据类型存储在栈（stack）中，引用数据类型存储在堆（heap）中
   - 基本类型存储的是值，引用类型存储的是存在堆里的地址
   - 原始值没有函数调用，比如undefined.tostring会报错，1.tostring虽然可以用，但是其实被转换成String对象了（包装类）
-
+  
 - **typeof，instanceof（判断数据类型）**
 
   - typeof对于原始值，除了null都能返回正确的类型；对于引用类型，除了函数，返回值都是Object
   - typeof返回的类型(8种)：number,string,boolean,undefined,symbol,bigint,function,object
   - instanceof内部机制是通过原型链来判断的，比如A instanceof B的原理是看A的原型链上有没有B的原型
+  
   ````
   function myInstanceof(left,right){
     let prototype = right.prototype;
@@ -42,7 +43,22 @@
       left = left.__proto__
     }
   }
-
+- **类型转换**
+  
+  - 转Boolean：在条件判断时，除了undefined，null，false，NaN，"",0,-0,其他所有值都转成true，包括所有对象
+  - 对象转基本类型：可以调用valueOf和toString方法，区别是如果倾向于转换为 Number 类型的，就优先调用 valueOf；如果倾向于转换为 String 类型，就只调用 toString；其实际转换机制是运用toPrimitive算法
+  - &和&&，|和||的区别：&和|是位运算，&&和||是逻辑运算；逻辑运算符&& || 中，如果&&的第一个运算数是false，就不再考虑第二个运算数，直接返回false；如果||的第一个运算数是true，也不再考虑第二个运算数，直接返回true。而&和|运算符却不是这样的，它们总是要比较两个运算数才得出结果，因而性能上&&和||会比&和|好
+  - ===，==的区别：如果对比双方类型不一样时，==会进行类型转换
+      - 顺便记一下类型转换过程：
+      -1，首先判断两者类型是否相同，相同就比较大小
+       2，类型不相同的话先判断是否存在对比null和undefined，存在就返回true
+       3，判断两者类型是否为string和number，是的话将字符串转换为number
+       4，判断一方是否存在boolean，是的话把boolean转为number再判断
+       5，判断其中一方是否为object且另一方为string，number或者symbol，是的话把object转为原始类型再判断
+  - 记几个常记错的
+  ````
+  typeof null = 'object'
+       
 - **深拷贝和浅拷贝**
 
   - 浅拷贝
