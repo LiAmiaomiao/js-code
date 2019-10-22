@@ -72,7 +72,7 @@
       let b = Object.assign( {} , a );
       ```
 
-    - 使用展开运算符`...`实现
+    - 使用展开运算符`...`  实现
 
       ```
       let a = {age:1};
@@ -288,8 +288,45 @@
   - 改变this指向：call，apply，bind指向传入的第一个参数
   - new：指向实例
 - **继承**
+  附上稍微完整点的继承
+  ````
+  //方法一：
+  function inherit(child,parent){
+      let prototype = Object.create(parent.prototype);
+      prototype.constructor = child;
+      child.prototype=prototype;
+  }
+  function Parent(age){
+      this.age=age;
+      this.arr=[1,2];
+  }
+  Parent.prototype.getArr=function(){
+      console.log(this.arr)
+  };
+  function Child(age){
+      Parent.call(this,age);
+  }
+  inherit(Child,Parent);
+  let instance=new Child();
+  instance.arr.push(3);
+  let instance2=new Child();
+  
+  //方法二：混合继承
+  function Parent(){}
+  function GrandParent(){}
+  function Child(){
+      Parent.call(this);
+      GrandParent.call(this);
+  }
+  //挂载
+  Child.prototype=Object.create(Parent.prototype);
+  //混合
+  //Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
+  Object.assign(Child.prototype,GrandParent.prototype);
+  //调整constructor
+  Child.prototype.constructor = Child;
 
-  - 看js-code
+  ````
 
 - **数组**
 
