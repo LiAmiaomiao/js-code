@@ -6,7 +6,7 @@ function ajax(url,method,body,success,fail){
     //     //兼容IE5，IE6
     //     request=new ActiveXObject('Microsoft.XMLHTTP');
     // }
-    var request=new XMLHttpRequest();
+   var request=new XMLHttpRequest();
    request.open(method,url);
    request.onreadystatechange=function(){
        if(request.readyState===4){

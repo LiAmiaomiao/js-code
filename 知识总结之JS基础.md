@@ -390,6 +390,14 @@
     - 数组降维
 
       - 方法一：使用flat()
+      ````
+      [[1,2],[3.4],[5,6].falt()
+      //[1，2，3，4，5，6]
+      //可以在flat方法里放参数，表示要拉平的层级，例如上述例子需要拉平一层，
+      //默认拉平一层
+      [[1,2],[3,[4,5],6].falt(2)
+      //[1，2，3，4，5，6]
+      ````
 
       - 方法二：利用隐式转换，使用+符号链接一个对象，默认调用toString方法转为字符串，再使用字符串分割成字符串数组，最后默认转成数值形数组
 
@@ -509,14 +517,60 @@
 
   - 注：对于创建对象来说，更推荐使用字面量的方式创建对象，因为使用new Object()的方式创建对象需要通过作用域链一层层找到Object
 
-    
-
 - **this**
+  - 普通函数：this指向window
+  - 调用对象里的函数：指向调用函数的对象
+  - 改变this指向：call，apply，bind指向传入的第一个参数
+  - new：指向实例
 
-  - 判断this指向
+- **ajax**
 
+  - 过程：
 
+    - 创建XMLHttpRequest对象,也就是创建一个异步调用对象.
+    - 创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息.
+    - 设置响应HTTP请求状态变化的函数.
+    - 发送HTTP请求.
+    - 获取异步调用返回的数据.
+    - 使用JavaScript和DOM实现局部刷新.
 
+  - 代码实现
+  ````
+    //es6版本
+    function ajax({url,method}){
+        return new Promise((resolve,reject)=>{
+            let request=new XMLHttpRequest();
+            request.open(method,url);
+            request.onreadystatechange=()=>{
+                if(request.readyState===4){
+                    if((request.status>=200&&request.status<300)||request.status===304){
+                        resolve.call(undefined,request.responseText)
+                    }else if(request.status>=400){
+                        reject.call(undefined,request);
+                    }
+                }
+            };
+            request.send();
+        })
+    }
+    //原生版本
+    function ajax(url,method,body,success,fail){
+        var request=new XMLHttpRequest();
+        request.open(method,url);
+        request.onreadystatechange=function(){
+           if(request.readyState===4){
+               if((request.status>=200 &&request.status<300)||request.status===304){
+                   //当call或apply的第一个参数为null || undefined时 this指向window ||global(node中)
+                   success.call(undefined,request.responseText);
+               }else if(request.status>=400){
+                   fail.call(undefined,request);
+               }
+           }
+        };
+        request.send(body)
+   }
+  ````
+        
 
 
 ### DOM
