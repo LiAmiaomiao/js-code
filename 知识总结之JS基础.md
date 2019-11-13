@@ -682,3 +682,27 @@
       setTimeout(interval, millisec)
     }
    ```
+##### JavaScript中的可枚举属性与不可枚举属性
+
+- 在JavaScript中，对象的属性分为可枚举和不可枚举，它们是由属性的enumerable值决定的。
+  - 如何判断？
+    - js中基本包装类型的原型属性是不可枚举的，如Object，Array，Number
+    - Object对象的propertyIsEnumerable()方法可以判断此对象是否包含某个属性，并且这个属性是否可枚举。（注意如果判断的属性存在于Object的原型内，直接返回false）
+  - 枚举性的作用
+    - 枚举性会影响以下三个函数的结果
+      - for... in
+      - Object. keys()
+      - JSON. stringify()
+- ##### 序列化：是把变量从内存中变成可存储或者传输的过程。
+
+  在程序运行过程中，所有变量都是在内存里，比如定义一个对象：
+
+  `let d = { name:'Bob', age:20, score=88 }`
+
+  可以随时修改变量，比如把`name`改为`Bill`，但是一旦程序结束，变量所占用的内存就呗操作系统全部回收，如果没有把修改后的`Bill`存储到磁盘上，下次重新运行程序，变量又被初始化为`Bob`。
+
+- ##### js对象的序列化与反序列化
+
+  - ES5中提供了内置函数JSON.stringify()和JSON.parse()用来序列化和还原JavaScript对象
+  - 序列化：对象===> 字符串
+  - 反序列化：字符串===> 对象
