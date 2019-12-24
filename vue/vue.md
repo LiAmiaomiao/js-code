@@ -1,9 +1,31 @@
 ##### vue
 
-- vue
 
-  - 生命周期
-  - 指令：
+- vue的核心：允许采用简洁的模板语法来声明式地将数据渲染进 DOM  
+
+  - vue的指令：
+
+    - vue规定的一些指令：例如v-if，v-show，v-modol等
+
+    - 自定义指令：
+
+      ```
+      //例如：
+      Vue.directive('focus',{
+          inserted(el) {
+            el.focus()
+          }
+      })
+      ```
+
+  - vue组件通信
+
+    - 父子组件之间：
+      - 父组件给子组件传值：props
+      - 子组件给父组件传值：$emit
+    - 
+
+
 
 - VueX
 
