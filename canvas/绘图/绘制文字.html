@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="200"></canvas>
+<script>
+    var canvas = document.getElementById('myCanvas')
+    if(canvas.getContext){
+        var ctx = canvas.getContext('2d')
+        ctx.font = 'Bold 30px Arial' //与css的font一样
+        ctx.textAlign = 'left'
+        ctx.fillStyle = 'pink'
+        ctx.fillText('HELLO',20,50)
+    }
+    //注：fillText方法不支持文本断行，即所有文本出现在一行内。所以，如果要生成多行文本，只有调用多次fillText方法
+</script>
+</body>
+</html>
