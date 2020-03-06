@@ -285,6 +285,7 @@
 - **this**
   - 普通函数：this指向window
   - 调用对象里的函数：指向调用函数的对象
+  - 严格严格模式下，全局作用域里的this指向window，普通函数里的this等于undefined
   - 改变this指向：call，apply，bind指向传入的第一个参数
   - new：指向实例
 - **继承**

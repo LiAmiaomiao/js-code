@@ -108,24 +108,24 @@
       //1，这个过程发生了两件事：一是改变状态，二是传递一个值或者reason（失败信息）
       //1.1，resolve 和 reject 函数被调用时，分别将promise的状态改为fulfilled（完成）或rejected（失败）
       //1.2，resole和reject调用完毕，状态改变，会传出一个值给状态处理方法
-      .then(onFufilled1,onRejected1)
-      //2，onFufilled1和onRejected1如果不是函数会被忽略
-      .then(onFufilled2,onRejected2)
-      3，onFufilled2和onRejected2如果不是函数，那么将以上一个的值fufilled或rejected，若结果为x，调用resolvePromise，若抛出错误，即被rejected
+      .then(onFulfilled1,onRejected1)
+      //2，onFulfilled1和onRejected1如果不是函数会被忽略
+      .then(onFulfilled2,onRejected2)
+      3，onFulfilled2和onRejected2如果不是函数，那么将以上一个的值fulfilled或rejected，若结果为x，调用resolvePromise，若抛出错误，即被rejected
       ```
 
     - 解释一下resolvePromise
 
       ```
-      promise1 = new Promise(fn).then(onFufilled,onRejected);
-      promise2 = promise1.then(onFufilled,onRejected);
+      promise1 = new Promise(fn).then(onFulfilled,onRejected);
+      promise2 = promise1.then(onFulfilled,onRejected);
       
       resolvePromise(promise2,x,resolve,reject)
       ```
 
       - 若promise2和x值相同，TypeErroe
 
-      - 若x是一个promise，分状态来说，若是pending状态，则promise直到x变成fufilled或者rejected，x都是pending状态；若是fufilled或者rejected状态，那么将用相同的值来完成fufill或者reject
+      - 若x是一个promise，分状态来说，若是pending状态，则promise直到x变成fulfilled或者rejected，x都是pending状态；若是fulfilled或者rejected状态，那么将用相同的值来完成fulfill或者reject
 
       - 若x是一个object或者function，
 
@@ -135,9 +135,9 @@
 
         - 若x.then出错，则rejected
         - 若then是一个函数，then.call(x, resolvePromiseFn, rejectPromise)
-        - 若x不是一个函数,用x完成（fufill）promise
+        - 若x不是一个函数,用x完成（fulfill）promise
 
-      - 若x不是一个object或者funciton，用x完成（fufill）promise
+      - 若x不是一个object或者funciton，用x完成（fulfill）promise
 
 - **Class**
 
