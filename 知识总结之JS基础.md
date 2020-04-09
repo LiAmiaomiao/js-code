@@ -92,15 +92,31 @@
       let a = {age:1};
       let b = {...a}
       ```
-
+    - Array.prototype.concat()
+     ```
+      let arr = [1, 3, {
+       username: 'kobe'
+      }];
+      let arr2=arr.concat();    
+      console.log(arr2);
+      ```
+    - Array.prototype.slice()
+     ```
+      let arr = [1, 3, {
+        username: ' kobe'
+      }];
+      let arr3 = arr.slice();
+      console.log(arr3);
+      ```
+    关于Array的slice和concat方法的补充说明：Array的slice和concat方法不修改原数组，只会返回一个浅复制了原数组中的元素的一个新数组。
     - 原生实现
 
       ```
       let shallowCopy = function(obj){
-'         if(typeof obj !== 'object') return;
+         if(typeof obj !== 'object') return;
          //根据obj的类型判断新建数组还是对象
-         let newObj = obj instanceof Array ? [] : {};
-         //遍历obj，并且判断是obj的属性才拷贝
+         let newObj = obj instanceof Array ? [] : {};//也可以这么写：let newObj = Array.isArray(obj) ? [] : {}
+         //遍历obj，并且判断是obj的属性才拷贝]
          for(let key in obj){
             if(obj.hasOwnProperty(key)){
               newObj[key] = obj[key]
@@ -136,6 +152,7 @@
      - 原生实现
             
         ```
+        //第一版（简易版）
          function deepClone(obj){
             let newObj = {},
             toStr=Object.prototype.toString,
@@ -156,6 +173,22 @@
             }
             return newObj
         }
+       ```
+       ```
+       function deepClone(obj){
+         function isObject(o){
+           return (typeof o === 'object' || typeof o === 'function') && o !== null
+         }
+         if(!isObject(obj)){
+           throw new Error('非对象')
+         }
+         let newObj = Array.isArray(obj) ? [] :{}
+         //Reflect.ownKeys() 返回一个由目标对象自身的属性键组成的数组,在这段代码里也就是要排除原型
+         Reflect.ownKeys(obj).forEach(key => {
+           newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]
+         })
+         return newObj;
+       }
        ```
     - 使用`MessageChannel`，当所需拷贝的对象含有内置类型并且不包含函数时可以使用它
 
@@ -247,7 +280,7 @@
 
     ```
       for (var i = 1; i <= 5; i++) {
-      ;(function(j) {
+      5(function(j) {
           setTimeout(function timer() {
             console.log(j)
           }, j * 1000)
