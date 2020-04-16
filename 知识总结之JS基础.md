@@ -1,4 +1,4 @@
-### 备战秋招面试之JS基础
+### JS基础
 
 ### ECMAScript
 
@@ -117,7 +117,7 @@
          //根据obj的类型判断新建数组还是对象
          let newObj = obj instanceof Array ? [] : {};//也可以这么写：let newObj = Array.isArray(obj) ? [] : {}
          //遍历obj，并且判断是obj的属性才拷贝]
-         for(let key in obj){
+         for(let key in obj){25
             if(obj.hasOwnProperty(key)){
               newObj[key] = obj[key]
             }
