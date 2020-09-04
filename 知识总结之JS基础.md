@@ -45,6 +45,21 @@
       left = left.__proto__
     }
   }
+
+- **在js里判断为false的六种情况**
+  - null
+  - false
+  - undefined
+  - NaA
+  - ''（空字符串）
+  - 0
+  - 因为以上六种值为false，所以在react里，字符串可以使用&&来控制无数据不显示，但是对于对象和数组，就不能使用&&来判断，因为当数组或对象为空的时候，js判断会为true
+
+- **除了上面六种情况，在react里对于对象或数组，都要进行判空操作**
+
+  - 判断length
+  - 用lodash的isEmpty方法
+
 - **类型转换**
   
   - 转Boolean：在条件判断时，除了undefined，null，false，NaN，"",0,-0,其他所有值都转成true，包括所有对象
